@@ -35,7 +35,7 @@ export default class ApiKeyValidationSection extends React.Component {
                         <Loading />
                         <div id="liveAlertPlaceholder"></div>
                         <div className="input-group mb-3">
-                            <input onChange={e => { this.apiKey = e.target.value }} placeholder={this.apiKey} type="text" className="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" />
+                            <input onChange={e => { this.apiKey = e.target.value }} placeholder="Enter your API Key here" type="text" className="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" />
                             <button
                                 onClick={async () => {
                                     showLoading()
