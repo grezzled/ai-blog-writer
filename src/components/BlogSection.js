@@ -1,6 +1,7 @@
 import React from "react";
 import { showLoading, hideLoading, Loading } from "./Loading";
 import { generateBlog } from "../openAi/apiGateway";
+import ButtonCopy from "./ButtonCopy";
 export default class Blog extends React.Component {
     constructor(props) {
         super(props)
@@ -27,13 +28,17 @@ export default class Blog extends React.Component {
     pushToBlogJSX(heading, section) {
         let data = (
             <div>
-                <h3>{heading}</h3>
-                <p>{section}</p>
+                <h2>{heading} <ButtonCopy value={heading} /></h2>
+                <p>{section}  <ButtonCopy value={section} /></p>
             </div>
         )
         this.setState(prevState => ({
             blogJSX: [...prevState.blogJSX, data]
         }))
+    }
+
+    textAreaAdjust(el) {
+        el.style.height = (el.scrollHeight > el.clientHeight) ? (el.scrollHeight)+"px" : "60px";
     }
 
     render() {
@@ -45,22 +50,34 @@ export default class Blog extends React.Component {
                         <button type="button" className="btn btn-warning"
                             onClick={async () => {
                                 let arr = this.props.headings
+                                let text = ""
                                 for (let i = 0; i < arr.length; i++) {
-                                    showLoading()
+                                    // showLoading()
                                     this.pushToHeadings(arr[i])
                                     const section = await generateBlog(this.props.apiKey, arr[i], this.props.title)
                                     console.log(section)
                                     this.pushToSections(section)
                                     this.pushToBlogJSX(arr[i], section)
-                                    hideLoading()
+                                    // hideLoading()
+
+                                    text = text + arr[i] + '\n' + section + '\n'
                                 }
+                                // this.setState({ fullBlog: text })
+                                this.setState({ fullBlog: "This is the text:" + text }, () => {
+                                    console.log(this.state.fullBlog)
+                                    // document.getElementById('fullBlogArea').focus()
+                                    document.getElementById("fullBlogArea").focus();
+                                })
                             }}>
                             WRITE FOR ME
                         </button>
+
                         <div className="card">
-                            <h1>{this.props.title}</h1>
-                            <p>{this.props.metaDescription}</p>
+                            <h1>{this.props.title} <ButtonCopy value={this.props.title} /></h1>
+                            <p>{this.props.metaDescription} <ButtonCopy value={this.props.metaDescription} /></p>
                             {this.state.blogJSX}
+                            <textarea id="fullBlogArea" onFocus={(e)=>this.textAreaAdjust(e.target)} defaultValue={this.state.fullBlog}></textarea>
+
                         </div>
                     </div>
                 </div>

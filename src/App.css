@@ -4,6 +4,16 @@
 	box-sizing: border-box;
 }
 
+textarea {
+	min-height: 60px;
+	overflow-y: auto;
+	word-wrap: break-word
+}
+
+body {
+	background-color: lightgray;
+}
+
 .loader-div {
 	position: fixed;
 	top: 0;
@@ -14,8 +24,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-    z-index: 100;
-    visibility: hidden;
+	z-index: 100;
+	visibility: hidden;
 }
 
 .loader {
@@ -48,15 +58,19 @@
 	0% {
 		transform: none;
 	}
+
 	25% {
 		transform: translateX(2vw);
 	}
+
 	50% {
 		transform: none;
 	}
+
 	75% {
 		transform: translateY(2vw);
 	}
+
 	100% {
 		transform: none;
 	}
@@ -66,15 +80,19 @@
 	0% {
 		transform: none;
 	}
+
 	25% {
 		transform: translateX(-2vw);
 	}
+
 	50% {
 		transform: none;
 	}
+
 	75% {
 		transform: translateY(-2vw);
 	}
+
 	100% {
 		transform: none;
 	}
