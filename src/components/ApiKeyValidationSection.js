@@ -4,8 +4,8 @@ import { validateApiKey } from './../openAi/apiGateway';
 
 export default class ApiKeyValidationSection extends React.Component {
 
-    // apiKey = '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'
-    apikey = "nothinhg here"
+    apiKey = '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'
+    // apikey = "nothinhg here"
     constructor(props) {
         super(props)
         this.alert = this.alert.bind(this);
