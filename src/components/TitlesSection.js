@@ -3,10 +3,7 @@ import { generateDescriptions } from "../openAi/apiGateway";
 import { hideLoading, showLoading, Loading } from "./Loading";
 export default class TitlesSection extends React.Component {
 
-    constructor(props) {
-        super(props)
-    }
-
+    customTitle = ""
     render() {
         return (
             <div className="card mt-2">
@@ -15,8 +12,24 @@ export default class TitlesSection extends React.Component {
                     <h5 className="card-title">Titles</h5>
                     <h6 className="card-subtitle mb-2 text-muted">Which title best represents what your page is about?</h6>
                     <p className="card-text">Target keywords: <b className='text-info'>{this.props.keywords}</b>. Your Title should read naturally and grab the reader's attention.</p>
+                    <div className="row">
+                        <div className="col-md-6 col-sm-12">
+                            <div className="input-group mb-3">
+                                <input onChange={e => { this.customTitle = e.target.value }} placeholder="Set your custom title here" type="text" className="form-control" aria-label="Custom Title" aria-describedby="button-addon2" />
+                                <button
+                                    onClick={async () => {
+                                        this.props.getCustomTitle(this.customTitle);
+                                    }}
+                                    className="btn btn-warning"
+                                    type="submit"
+                                    id="button-addon2">Set Title</button>
+                            </div>
+                        </div>
+                    </div>
                     <h5 className="card-subtitle text-muted mt-2 mb-2">Generated Page Title Ideas</h5>
                     <div className='row row-cols-1 row-cols-md-3 g-4 mb-2' id='titleSection'>{this.props.suggestedTitles}</div>
+
+
                 </div>
                 <div className=' card-footer  text-end'>
                     <div className='row'>

@@ -27,7 +27,7 @@ export default class Blog extends React.Component {
     pushToBlogJSX(heading, section) {
         let data = (
             <div>
-                <h1>{heading}</h1>
+                <h3>{heading}</h3>
                 <p>{section}</p>
             </div>
         )
@@ -58,6 +58,8 @@ export default class Blog extends React.Component {
                             WRITE FOR ME
                         </button>
                         <div className="card">
+                            <h1>{this.props.title}</h1>
+                            <p>{this.props.metaDescription}</p>
                             {this.state.blogJSX}
                         </div>
                     </div>

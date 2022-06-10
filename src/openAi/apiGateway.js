@@ -130,7 +130,7 @@ async function generateBlog(apiKey, heading, title) {
             model: "text-davinci-002",
             prompt: "For this blog that is about " + title + " Expand the blog section in to a detailed professional , witty and clever explanation. \n\n" + heading ,
             temperature: 0.7,
-            max_tokens: 500,
+            max_tokens: 300,
             top_p: 1,
             frequency_penalty: 0,
             presence_penalty: 0

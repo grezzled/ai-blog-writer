@@ -8,6 +8,8 @@ import TitlesSection from './components/TitlesSection';
 import DescriptionSection from './components/DescriptionsSection';
 import BlogSection from './components/BlogSection'
 import CheckBox from './components/CheckBox'
+import { ToastContainer} from 'react-toastify';
+
 export default class App extends React.Component {
 
   constructor(props) {
@@ -40,6 +42,7 @@ export default class App extends React.Component {
     this.getSelectedHeading = this.getSelectedHeading.bind(this)
     this.getUnselectdHeading = this.getUnselectdHeading.bind(this)
     this.showHeadingsSection = this.showHeadingsSection.bind(this)
+    this.getCustomTitle = this.getCustomTitle.bind(this)
   }
 
 
@@ -144,12 +147,21 @@ export default class App extends React.Component {
     return endata
   }
 
+  getCustomTitle = async (data) => {
+    this.setState({ title: data }, () => {
+      console.log("this is the new Title" + this.state.title)
+
+    })
+  }
+
   render() {
     return (
       <div className="App container">
+        <ToastContainer />
+
         <ApiKeyValidationSection getApiKey={this.getApiKey} />
         <KeywordSection apiKey={this.state.apiKey} getGeneratedTitles={this.getGeneratedTitles} getKeywords={this.getKeywords} />
-        <TitlesSection apiKey={this.state.apiKey} getGeneratedDescriptions={this.getGeneratedDescriptions} keywords={this.state.keywords} suggestedTitles={this.state.suggestedTitles} title={this.state.title} />
+        <TitlesSection getCustomTitle={this.getCustomTitle} apiKey={this.state.apiKey} getGeneratedDescriptions={this.getGeneratedDescriptions} keywords={this.state.keywords} suggestedTitles={this.state.suggestedTitles} title={this.state.title} />
         <DescriptionSection getGeneratedHeadings={this.getGeneratedHeadings} apiKey={this.state.apiKey} keywords={this.state.keywords} suggestedDescriptions={this.state.suggestedDescriptions} metaDescription={this.state.metaDescription} title={this.state.title} />
 
         <div className="card mt-2">
@@ -168,7 +180,7 @@ export default class App extends React.Component {
               </div>
             </div>
           </div>
-          <BlogSection headings={this.state.headings} apiKey={this.state.apiKey} title= {this.state.title} />
+          <BlogSection headings={this.state.headings} apiKey={this.state.apiKey} title={this.state.title} metaDescription={this.state.metaDescription}/>
         </div>
       </div>
     )
