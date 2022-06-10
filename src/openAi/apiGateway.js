@@ -119,7 +119,7 @@ async function generateHeadings(apiKey, title) {
     }
 }
 
-async function generateBlog(apiKey, heading) {
+async function generateBlog(apiKey, heading, title) {
     const configuration = new Configuration({
         apiKey: apiKey,
     });
@@ -128,7 +128,7 @@ async function generateBlog(apiKey, heading) {
     try {
         const completion = await openai.createCompletion({
             model: "text-davinci-002",
-            prompt: "Expand the blog section in to a detailed professional , witty and clever explanation. \n\n" + heading,
+            prompt: "For this blog that is about " + title + " Expand the blog section in to a detailed professional , witty and clever explanation. \n\n" + heading ,
             temperature: 0.7,
             max_tokens: 500,
             top_p: 1,

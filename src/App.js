@@ -5,7 +5,6 @@ import KeywordSection from './components/KeywordsSection';
 import ApiKeyValidationSection from './components/ApiKeyValidationSection';
 import RadioButton from './components/RadioButton';
 import TitlesSection from './components/TitlesSection';
-import { generateDescriptions, generateBlog } from './openAi/apiGateway';
 import DescriptionSection from './components/DescriptionsSection';
 import BlogSection from './components/BlogSection'
 import CheckBox from './components/CheckBox'
@@ -167,12 +166,9 @@ export default class App extends React.Component {
               <div className='col-md-6 h-md-100 text-start'>
                 <p><b>Meta Description</b>: {this.props.metaDescription}</p>
               </div>
-              <div className='col-md-6 text-end'>
-                <button type="button" className="btn btn-warning" onClick={async () => generateBlog(this.state.apiKey, this.state.headings)}>WRITE FOR ME</button>
-              </div>
             </div>
           </div>
-          <BlogSection headings={this.state.headings} apiKey={this.state.apiKey} />
+          <BlogSection headings={this.state.headings} apiKey={this.state.apiKey} title= {this.state.title} />
         </div>
       </div>
     )

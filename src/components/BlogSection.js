@@ -39,17 +39,20 @@ export default class Blog extends React.Component {
     render() {
         return (
             <div className="card mt-2">
+                <Loading />
                 <div className='card-body'>
                     <div>
                         <button type="button" className="btn btn-warning"
                             onClick={async () => {
                                 let arr = this.props.headings
                                 for (let i = 0; i < arr.length; i++) {
+                                    showLoading()
                                     this.pushToHeadings(arr[i])
-                                    const section = await generateBlog(this.props.apiKey, arr[i])
+                                    const section = await generateBlog(this.props.apiKey, arr[i], this.props.title)
                                     console.log(section)
                                     this.pushToSections(section)
                                     this.pushToBlogJSX(arr[i], section)
+                                    hideLoading()
                                 }
                             }}>
                             WRITE FOR ME
