@@ -1,14 +1,17 @@
 import React from 'react';
 
 import './App.css';
-import KeywordSection from './components/KeywordsSection';
-import ApiKeyValidationSection from './components/ApiKeyValidationSection';
-import RadioButton from './components/RadioButton';
-import TitlesSection from './components/TitlesSection';
-import DescriptionSection from './components/DescriptionsSection';
-import BlogSection from './components/BlogSection'
-import CheckBox from './components/CheckBox'
-import { ToastContainer} from 'react-toastify';
+import KeywordsSection from './components/sections/KeywordsSection';
+import ApiKeyValidationSection from './components/sections/ApiKeyValidationSection';
+import RadioButton from './components/elements/RadioButton';
+import TitlesSection from './components/sections/TitlesSection';
+import DescriptionSection from './components/sections/DescriptionsSection';
+import BlogSection from './components/sections/BlogSection'
+import CheckBox from './components/elements/CheckBox'
+import HeadingsSection from './components/sections/HeadingsSection';
+import { ToastContainer } from 'react-toastify';
+
+
 
 export default class App extends React.Component {
 
@@ -17,17 +20,15 @@ export default class App extends React.Component {
     this.state = {
       apiKey: null,
       keywords: null,
-
       title: null,
-      suggestedTitles: [],
 
+      suggestedTitles: [],
 
       metaDescription: null,
       suggestedDescriptions: [],
 
       suggestedHeadings: [],
       headings: [],
-      heading: null,
     }
 
     this.getApiKey = this.getApiKey.bind(this)
@@ -44,7 +45,6 @@ export default class App extends React.Component {
     this.showHeadingsSection = this.showHeadingsSection.bind(this)
     this.getCustomTitle = this.getCustomTitle.bind(this)
   }
-
 
   getApiKey = async (data) => {
     this.setState({ apiKey: data })
@@ -128,7 +128,7 @@ export default class App extends React.Component {
 
   getGeneratedHeadings = async (data) => {
     this.showHeadingsSection(data)
-    this.setState({ suggestedHeadings: this.showHeadingsSection(data) })
+    this.setState({ suggestedHeadings: this.showHeadingsSection(data), headings: [] })
   }
 
   showHeadingsSection(data) {
@@ -155,33 +155,48 @@ export default class App extends React.Component {
   }
 
   render() {
+    let params = {
+      apiKey: this.state.apiKey,
+      getApiKey: this.getApiKey,
+      keywords: this.state.keywords,
+      getKeywords: this.getKeywords,
+      title: this.state.title,
+      getGeneratedTitles: this.getGeneratedTitles,
+      suggestedTitles: this.state.suggestedTitles,
+      getCustomTitle: this.getCustomTitle,
+      metaDescription: this.state.metaDescription,
+      getGeneratedDescriptions: this.getGeneratedDescriptions,
+      suggestedDescriptions: this.state.suggestedDescriptions,
+      suggestedHeadings: this.state.suggestedHeadings,
+      getGeneratedHeadings: this.getGeneratedHeadings,
+      getSelectedHeading: this.getSelectedHeading,
+      getUnselectdHeading: this.getUnselectdHeading,
+      headings: this.state.headings,
+    }
     return (
-      <div className="App container">
+      <div className="App m-4">
         <ToastContainer />
 
-        <ApiKeyValidationSection getApiKey={this.getApiKey} />
-        <KeywordSection apiKey={this.state.apiKey} getGeneratedTitles={this.getGeneratedTitles} getKeywords={this.getKeywords} />
-        <TitlesSection getCustomTitle={this.getCustomTitle} apiKey={this.state.apiKey} getGeneratedDescriptions={this.getGeneratedDescriptions} keywords={this.state.keywords} suggestedTitles={this.state.suggestedTitles} title={this.state.title} />
-        <DescriptionSection getGeneratedHeadings={this.getGeneratedHeadings} apiKey={this.state.apiKey} keywords={this.state.keywords} suggestedDescriptions={this.state.suggestedDescriptions} metaDescription={this.state.metaDescription} title={this.state.title} />
-
-        <div className="card mt-2">
-          <div className='card-body'>
-            <div>
-              <h5 className="card-title">Headings</h5>
-              <h6 className="card-subtitle mb-2 text-muted">Which headings you would like to start out with?</h6>
-              <p className="card-text">Your headings are like chapters of your content, and indicate what visitors will read at each section.</p>
-              <div className='row row-cols-1 row-cols-md-3 g-4 mb-2' id='titleSection'>{this.state.suggestedHeadings}</div>
-            </div>
-          </div>
-          <div className=' card-footer  text-end'>
+        <div className='row'>
+          <div className='col-lg-6 col-sm-12'>
             <div className='row'>
-              <div className='col-md-6 h-md-100 text-start'>
-                <p><b>Meta Description</b>: {this.props.metaDescription}</p>
+              <div className='col-lg-6 mt-2'>
+                <ApiKeyValidationSection params={params} />
+              </div>
+              <div className='col-lg-6 mt-2'>
+                <KeywordsSection params={params} />
               </div>
             </div>
+            <TitlesSection params={params} />
+            <DescriptionSection params={params} />
+            <HeadingsSection params={params} />
           </div>
-          <BlogSection headings={this.state.headings} apiKey={this.state.apiKey} title={this.state.title} metaDescription={this.state.metaDescription}/>
+          <div className='col-lg-6 col-sm-12'>
+            <BlogSection params={params} />
+          </div>
         </div>
+
+
       </div>
     )
   }

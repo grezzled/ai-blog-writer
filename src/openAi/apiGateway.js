@@ -21,6 +21,7 @@ async function validateApiKey(apiKey) {
 }
 
 async function generateTitles(apiKey, keywords) {
+    // return "-Car vs. Motorcycle: The Pros and Cons "
     // return "-Car vs. Motorcycle: The Pros and Cons  -The debate of Car vs. Motorcycle: Which is better? -Advantages and disadvantages of Cars vs Motorcycles -Cars vs Motorcycles: A Comprehensive Comparison -The Pros and Cons of Cars and Motorcycles"
     const configuration = new Configuration({
         apiKey: apiKey,
@@ -58,6 +59,7 @@ async function generateDescriptions(apiKey, title) {
     //     "5. Car or motorcycle ? It's a tough choice, but we're here to help.Consider your needs and preferences before making a decision." +
     //     "6. Trying to decide between a car and a motorcycle ? Here are some things to consider before making your final decision." +
     //     "7. Still trying to decide if a car or motorcycle is right for you ? Check out this helpful guide to help you make the best decision for you."
+    // 
     const configuration = new Configuration({
         apiKey: apiKey,
     });
