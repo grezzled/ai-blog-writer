@@ -151,4 +151,37 @@ async function generateBlog(apiKey, heading, title) {
     }
 }
 
-export { validateApiKey, generateTitles, generateDescriptions, generateHeadings, generateBlog }
+async function generateFullBlog(apiKey, title) {
+    // return "-Car vs. Motorcycle: The Pros and Cons  -The debate of Car vs. Motorcycle: Which is better? -Advantages and disadvantages of Cars vs Motorcycles -Cars vs Motorcycles: A Comprehensive Comparison -The Pros and Cons of Cars and Motorcycles"
+
+    const configuration = new Configuration({
+        apiKey: apiKey,
+    });
+    const openai = new OpenAIApi(configuration);
+
+    try {
+        const completion = await openai.createCompletion({
+            model: "text-davinci-002",
+            prompt: "Write a blog with headlines and expanded sections about \"" + title + "\"",
+            temperature: 0.7,
+            max_tokens: 450,
+            top_p: 1,
+            frequency_penalty: 0,
+            presence_penalty: 0
+        });
+        console.log(completion.data.choices[0].text)
+        return completion.data.choices[0].text
+
+    } catch (error) {
+        if (error.response) {
+            console.error(error.response.status);
+            console.error(error.response.data);
+        } else {
+            console.error(error)
+        }
+        return false
+    }
+}
+
+
+export { validateApiKey, generateTitles, generateDescriptions, generateHeadings, generateBlog , generateFullBlog}

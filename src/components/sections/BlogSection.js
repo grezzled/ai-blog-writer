@@ -1,6 +1,6 @@
 import React from "react";
 import { showLoading, hideLoading, Loading } from "../elements/Loading";
-import { generateBlog } from "../../openAi/apiGateway";
+import { generateBlog, generateFullBlog } from "../../openAi/apiGateway";
 import ButtonCopy from "../elements/ButtonCopy";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -50,7 +50,7 @@ export default class Blog extends React.Component {
                 <Loading />
                 <div className='card-body'>
                     <div>
-                        <button type="button" className="btn btn-sm btn-warning"
+                        <button type="button" className="btn btn-sm btn-warning me-2"
                             onClick={async () => {
                                 if (this.props.params.apiKey === null) {
                                     return alert("API Not Valid")
@@ -78,7 +78,20 @@ export default class Blog extends React.Component {
                             }}>
                             WRITE FOR ME
                         </button>
-
+                        <button type="button" className="btn btn-sm btn-warning"
+                            onClick={async () => {
+                                if (this.props.params.apiKey === null)
+                                    return alert("API Not Valid")
+                                showLoading()
+                                const fullBlog = await generateFullBlog(this.props.params.apiKey, this.props.params.title)
+                                this.setState({ fullBlog: fullBlog }, () => {
+                                    console.log(this.state.fullBlog)
+                                    document.getElementById("fullBlogArea").focus();
+                                })
+                                hideLoading()
+                            }}
+                        >
+                            WRITE FULL BLOG </button>
                         <div className="p-2">
                             <b className="h6"><span className="align-middle">{this.props.params.title} </span><ButtonCopy value={this.props.params.title} /></b>
                             <p>{this.props.params.metaDescription} <small><ButtonCopy value={this.props.params.metaDescription} /></small></p>
@@ -89,7 +102,7 @@ export default class Blog extends React.Component {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         )
     }
 }

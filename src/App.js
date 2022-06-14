@@ -1,5 +1,4 @@
 import React from 'react';
-
 import './App.css';
 import KeywordsSection from './components/sections/KeywordsSection';
 import ApiKeyValidationSection from './components/sections/ApiKeyValidationSection';
@@ -11,8 +10,6 @@ import CheckBox from './components/elements/CheckBox'
 import HeadingsSection from './components/sections/HeadingsSection';
 import { ToastContainer } from 'react-toastify';
 
-
-
 export default class App extends React.Component {
 
   constructor(props) {
@@ -21,12 +18,9 @@ export default class App extends React.Component {
       apiKey: null,
       keywords: null,
       title: null,
-
       suggestedTitles: [],
-
       metaDescription: null,
       suggestedDescriptions: [],
-
       suggestedHeadings: [],
       headings: [],
     }
@@ -173,6 +167,7 @@ export default class App extends React.Component {
       getUnselectdHeading: this.getUnselectdHeading,
       headings: this.state.headings,
     }
+
     return (
       <div className="App m-4">
         <ToastContainer />
